@@ -1,6 +1,7 @@
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import DisplayBooksPage from "./DisplayBooksPage";
 import UpdateBookPage from "./UpdateBookPage";
+import CreateNewBookPage from "./CreateNewBookPage";
 
 function BooksPage() {
   return (
@@ -10,14 +11,9 @@ function BooksPage() {
         <Route path="" element={<DisplayBooksPage />} />
         <Route
           path="add-new"
-          element={
-            <>
-              <h1>Coming Soon ...</h1>
-              <Link to="..">Go Back</Link>
-            </>
-          }
+          element={<CreateNewBookPage />}
         />
-        <Route path="update/:id" element={<UpdateBookPage />} />
+        <Route path="update/:bookId" element={<UpdateBookPage />} />
         <Route path="*" element={<h1>Page Not Found 404</h1>} />
       </Routes>
     </main>

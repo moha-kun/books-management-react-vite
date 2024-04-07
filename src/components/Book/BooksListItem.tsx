@@ -29,6 +29,7 @@ function BooksListItem(props: {
       <td>{book.title}</td>
       <td>{book.genre}</td>
       <td>{book.author}</td>
+      <td>{showUpdateButton && (book.available ? 'Available' : 'Borrowed')}</td>
       <td>
         {showLendButton && (
           <Button onClick={() => handleLendBook(book.id)} variant="success">

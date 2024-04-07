@@ -1,12 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import BookForm from "../../components/Book/BookForm";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Book } from "../../models/Book";
 import axios from "../../axios";
-import { Button } from "react-bootstrap";
-import BookForm from "../../components/Book/BookForm";
 
-function UpdateBookPage() {
-  const {bookId} = useParams()
+function CreateNewBookPage() {
   const navigate = useNavigate();
   const [book, setBook] = useState<Book>({
     id: 0,
@@ -15,11 +14,6 @@ function UpdateBookPage() {
     genre: "",
     available: true,
   });
-
-  useEffect(() => {
-    axios.get(`/books/${bookId}`).then(res => setBook(res.data))
-  }, [])
-  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBook((prevBook) => {
@@ -32,7 +26,7 @@ function UpdateBookPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.put(`/books/${bookId}`, book).then(() => navigate(".."));
+    axios.post(`/books`, book).then(() => navigate('..'))
   };
 
   return (
@@ -52,4 +46,4 @@ function UpdateBookPage() {
   );
 }
 
-export default UpdateBookPage;
+export default CreateNewBookPage;

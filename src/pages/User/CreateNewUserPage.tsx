@@ -1,12 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserForm from "../../components/User/UserForm";
+import { Button } from "react-bootstrap";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { User } from "../../models/User";
 import axios from "../../axios";
-import { Button } from "react-bootstrap";
-import UserForm from "../../components/User/UserForm";
 
-function UpdateUserPage() {
-  const { userId } = useParams();
+function CreateNewUserPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState<User>({
     id: 0,
@@ -14,13 +13,11 @@ function UpdateUserPage() {
     lastName: "",
   });
 
-  useEffect(() => {
-    axios.get(`/users/${userId}`).then((res) => setUser(res.data));
-  }, []);
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.put(`/users/${userId}`, user).then(() => navigate(`..`));
+    axios
+      .post(`/users`, user)
+      .then(() => navigate(`..`));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,4 +46,4 @@ function UpdateUserPage() {
   );
 }
 
-export default UpdateUserPage;
+export default CreateNewUserPage;
